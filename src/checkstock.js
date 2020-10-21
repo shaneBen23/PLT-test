@@ -21,12 +21,11 @@ const getCurrentStockLevel = (sku) => new Promise((resolve, reject) => {
       return reject("SKU entered does not exist");
     }
 
-    // update sku qty based on order or refund
+    // update sku qty based on order or refund. Sub from qty if 'order' add to qty if 'refund'
     skuTransactions.map(transaction => {
       qty = transaction.type == 'order' ? qty - transaction.qty : qty + transaction.qty;
     });
 
-    // return final sku stock balance
     resolve({sku, qty});
 
   } catch (error) {
